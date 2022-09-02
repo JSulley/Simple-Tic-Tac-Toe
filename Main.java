@@ -4,14 +4,19 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Starting game...");
         char[] entries = new char[] {'_', '_', '_', '_', '_', '_', '_', '_', '_'};
+
+        // Ask player 1 which character they want
+        System.out.println("Player 1 choose between X and O.");
+        Scanner scanner = new Scanner(System.in);
+        
+        // X's turn depends on which icon player 1 chose
+        boolean XTurn = checkIcon(scanner);
+
         displayBoard(entries);
 
         // Initialize game variables
         boolean XWon = false;
         boolean OWon = false;
-
-        // Player 1 will be X and will have the first turn
-        boolean XTurn = true;
 
         // Initialize countArr: Length 2 integer array containing number of X's and O's
         int[] countArr = new int[2];
@@ -26,7 +31,7 @@ public class Main {
         // Create game loop
         while (true) {
             // Get coordinates from user and update entries
-            Scanner scanner = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             entries = updateEntries(scanner, XTurn, entries);
             
             displayBoard(entries);
@@ -164,5 +169,23 @@ public class Main {
                 break;
             }
         }
+    }
+
+    public static boolean checkIcon(Scanner scanner) {
+        boolean validInput = false;
+        char selectedIcon = scanner.next().charAt(0);
+        boolean XTurn = true;  // Assume player 1 selected 'X'
+
+        while (!validInput) {
+            if (selectedIcon == 'O' || selectedIcon == 'X') {
+                XTurn = selectedIcon == 'X';
+                break;
+            } else {
+                System.out.println("Invalid icon: Please select either X or O!");
+                scanner = new Scanner(System.in);
+                selectedIcon = scanner.next().charAt(0);
+            }
+        }
+        return XTurn;
     }
 }
