@@ -18,9 +18,6 @@ public class Main {
         boolean XWon = false;
         boolean OWon = false;
 
-        // Initialize countArr: Length 2 integer array containing number of X's and O's
-        int[] countArr = new int[2];
-
         // Initialize winnerArr: Length 2 boolean array containing values indicating 
         // whether X and O won
         boolean[] winnerArr = new boolean[2];
@@ -38,7 +35,8 @@ public class Main {
 
             // Determine if a player won or a draw occurred
             // First get number of X's and O's on the board and update countArr
-            countFilledEntries(entries, countArr);
+            // Initialize countArr: Length 2 integer array containing number of X's and O's
+            int[] countArr = countFilledEntries(entries);
 
             int XCount = countArr[0];
             int OCount = countArr[1];
@@ -115,8 +113,8 @@ public class Main {
         return entries;
     }
     
-    public static void countFilledEntries(char[] entries, int[] countArr) {
-
+    public static int[] countFilledEntries(char[] entries) {
+        int[] countArr = new int[2];
         for (char entry : entries) {
             switch (entry) {
                 case 'X':
@@ -127,6 +125,7 @@ public class Main {
                     break;
             }
         }
+        return countArr;
     }
 
     public static void getWinner(char[] entries, boolean[] winnerArr) {
